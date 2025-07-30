@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Campaign Tracker</title>
+  <link rel="stylesheet" href="main-tracker.css">
+</head>
+<body>
+  <div id="tooltip"></div>
+  <div id="planet-score-container">
+    <p id="player-one-score"></p>
+    <p id="dot-one"> • </p>
+    <p id="player-two-score"></p>
+    <p id="dot-two"> • </p>
+    <p id="player-three-score"></p>
+  </div>
+  <div id="actions-left-container">
+    <p id="actions-left"></p>
+  </div>
+  <div id="holocron-locations-container">
+    <p id="holocron1"></p>
+    <p id="holocron2"></p>
+    <p id="holocron3"></p>
+  </div>
+  <div id="produce-ship-container">
+    <button id="generic1"></button>
+    <button id="generic2"></button>
+    <button id="generic3"></button>
+    <button id="generic4"></button>
+    <button id="generic5"></button>
+    <button id="generic6"></button>
+    <button id="generic7"></button>
+    <button id="ace1"></button>
+    <button id="ace2"></button>
+    <button id="ace3"></button>
+    <button id="ace4"></button>
+    <button id="ace5"></button>
+    <button id="huge1"></button>
+  </div>
+  <div id="enter-code-container">
+    <input placeholder="Enter code here..." type="text" name="" id="enter-code-input">
+    <button id="enter-code-submit">Submit</button>
+  </div>
+  <div id="fights-to-be-resolved"></div>
+  <div id="planet-details-view">
+    <button id="planet-details-back">X</button>
+    <img src="" draggable="false" id="planet-details-bg-image">
+    <p id="aurebesh-text"></p>
+    <p id="english-text"></p>
+    <!-- <p id="snippet">snippet</p> -->
+    <button id="claim-planet">Claim planet (1 action)</button>
+    <button id="place-station">Place station (2 actions)</button>
+    <div id="station-at-location"></div>
+    <div id="ships-at-location"></div>
+    <div id="enemy-ships-at-location"></div>
+    <div id="move-locations"></div>
+  </div>
+  <img src="./resources/galaxies.jpg" class="background" alt="Galaxy Background" />
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
+<script src="globals.js"></script>
+<script src="check_moves_away.js"></script>
+<script src="determine_current_player.js"></script>
+<script src="planets.js"></script>
+<script src="fill_in_holocron_locations.js"></script>
+<script src="planet_tooltip.js"></script>
+<script src="hyperspace_lanes.js"></script>
+<script src="check_if_actions_done.js"></script>
+<script src="claim_planet.js"></script>
+<script src="process_code.js"></script>
+<script src="create_ship_buttons.js"></script>
+<script src="make_space_station.js"></script>
+<script src="make_generic.js"></script>
+<script src="make_ace.js"></script>
+<script src="make_huge.js"></script>
+<script src="generate_code.js"></script>
+<script src="planetview.js"></script>
+<script src="fnv1a.js"></script>
+<script src="threejs_stuff.js"></script>
+</html>

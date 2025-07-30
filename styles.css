@@ -1,0 +1,32 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: black;
+}
+
+#container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+button {
+  aspect-ratio: 1 / 1;
+  width: 300px;
+  border: 2px solid white; 
+  border-radius: 15px;
+  color: white;
+  font-size: 2rem;
+  background: transparent;
+
+  &:hover {
+    cursor: pointer;
+  }
+}

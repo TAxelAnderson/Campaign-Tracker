@@ -1,0 +1,394 @@
+@font-face {
+  font-family: "Ships";
+  src: 
+    url("xwing-miniatures-ships.ttf") format("opentype");
+}
+
+@font-face {
+  font-family: "Symbols";
+  src: 
+    url("xwing-miniatures.ttf") format("opentype");
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+button {
+  cursor: pointer;
+}
+
+body {
+  overflow: hidden;
+}
+
+canvas {
+  display: block;
+  background: transparent;
+}
+
+img.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+#tooltip {
+  position: absolute;
+  padding: 4px 8px;
+  background: rgba(0,0,0,0.7);
+  color: white;
+  border-radius: 4px;
+  pointer-events: none;
+  font-family: "Roboto";
+  font-size: 12px;
+  display: none;
+  z-index: 10;
+}
+
+#holocron-locations-container {
+  width: 200px;
+  height: 200px;
+  color: white;
+  background: black;
+  position: absolute;
+  top: calc(100vh - 200px);
+  left: calc(100vw - 200px); 
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+}
+
+#enter-code-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: 400px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 101;
+
+  & input {
+    width: 70%;
+    height: 100%;
+    z-index: 101;
+    font-size: 1.1rem;
+    padding: 0 10px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border: none;
+  }
+
+  & button {
+    width: 30%;
+    height: 100%;
+    outline: none;
+    border: 1px solid white;
+    font-size: 1.1rem;
+    cursor: pointer;
+    z-index: 101;
+    background-color: transparent;
+    color: white;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: -100vh;
+    left: -100vw;
+    width: 1000vw;
+    height: 1000vh;
+    background: black;
+    z-index: 100;
+  }
+}
+
+#planet-details-view {
+  position: relative;
+  display: none;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 30px;
+  width: 100vw;
+  height: 100vh;
+}
+
+#planet-details-back {
+  position: absolute;
+  display: none;
+  top: 30px;
+  left: 30px;
+  height: 70px;
+  width: 70px;
+  border: 2px solid white;
+  outline: none;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 3;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+#planet-details-bg-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+#aurebesh-text {
+  opacity: 0;
+  font-size: 20px;
+  font-weight: 200;
+  z-index: 2;
+  color: white;
+  padding-left: 200px;
+  padding-top: 100px;
+}
+
+#english-text {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 50px;
+  font-weight: 600;
+  z-index: 2;
+  color: white;
+  padding-left: 200px;
+}
+
+#snippet {
+  padding-left: 200px;
+  z-index: 2;
+  color: white;
+  font-size: 15px;
+  margin-top: -10px;
+}
+
+#claim-planet, #place-station {
+  height: 60px;
+  width: 200px;
+  background-color: black;
+  color: white;
+  margin-left: 200px;
+  border-radius: 15px;
+  z-index: 2;
+  border: 1px solid white;
+  cursor: pointer;
+  font-size: 16px;
+
+  &:hover {
+    background-color: rgb(30, 30, 30);
+  }
+
+  &:active {
+    background-color: rgb(40, 40, 40);
+  }
+}
+
+#ships-at-location,
+#enemy-ships-at-location,
+#station-at-location {
+  margin-left: 200px;
+  width: 650px;
+  max-height: 500px;
+  border-radius: 15px;
+  overflow: scroll;
+  background-color: black;
+  opacity: 70%;
+  border: 1px solid white;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  z-index: 2;
+
+  & p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2px;
+  }
+}
+
+.icon {
+  font-family: "Ships";
+  font-size: 60px;
+}
+
+.ship {
+  height: 60px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+  opacity: 100%;
+  overflow-y: scroll;
+
+  & > * {
+    color: white;
+  }
+}
+
+.hull-count {
+  color: yellow;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+  & > span {
+    font-family: "Symbols";
+  }
+}
+
+.shield-count {
+  color: lightblue;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+  & > span {
+    font-family: "Symbols";
+  }
+}
+
+.move-ship,
+.claim-holocron,
+.fix-ship {
+  background: transparent;
+  height: 50%;
+  border: 1px solid white;
+  width: 130px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgb(30, 30, 30);
+  }
+
+  &:active {
+    background-color: rgb(40, 40, 40);
+  }
+}
+
+#produce-ship-container {
+  width: 200px;
+  height: 600px;
+  position: absolute;
+  left: 0;
+  top: 100px;
+  overflow: scroll;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+
+  & button {
+    width: 95%;
+    height: 60px;
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+  }
+}
+
+#actions-left-container {
+  position: absolute;
+
+  & p {
+    color: white;
+    font-size: 2rem;
+  }
+}
+
+#planet-score-container {
+  width: fit-content;
+  height: 50px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 50%;
+  font-size: 2rem;
+  transform: translateX(-50%);
+  background-color: black;
+  border: 1px solid white;
+  padding: 10px;
+}
+
+#move-locations {
+  display: none;
+  width: 350px;
+  height: 500px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  background-color: black;
+  border-radius: 15px;
+  opacity: 95%;
+  z-index: 800;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
+  & * {
+    font-size: 1.25rem;
+  }
+
+  #move-locations-close {
+    height: 50px;
+    width: 50px;
+    border: 1px solid white;
+    background-color: transparent;
+    color: white;
+    margin-left: calc(100% - 50px);
+  }
+
+  & button:not(#move-locations-close) {
+    width: 85%;
+    padding: 10px 0;
+    border-radius: 10px;
+    color: white;
+    background-color: transparent;
+    border: 1px solid white;
+  }
+}
+
+#fights-to-be-resolved {
+  width: 100vw;
+  height: 100vh;
+  background: black;
+  color: white;
+  font-size: 2rem;
+  display: none;
+  z-index: 10000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 100px;
+
+  & p {
+    text-wrap: wrap;
+  }
+
+  & button {
+    width: 100vw;
+    height: 70px;
+    border: 2px solid white;
+    border-radius: 15px;
+    background: black;
+    color: white;
+    font-size: 1.25rem;
+  }
+}

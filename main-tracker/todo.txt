@@ -1,0 +1,50 @@
+COMPLETED:
+Interactive map
+Tooltips
+Import code functionality
+Produce ships
+Action history
+Ship movement
+Fix ship array UUIDs
+Space station Production - using faction not player
+Detect fights
+Enemy vs friendly ship on planet views
+Station display on planet views
+Prevent more than one space station for one planet
+Have movement system lock a ship that has enemy ships in the space
+Visually differentiate captured planets
+Create code to check distance between planets
+Update data code to keep holocron data
+Better move popup UI
+Button to claim holocron only shows up on holo planets
+CHANGE BACK OVERWRITTEN HOLO VALUES IN CODE GEN
+FO starts with Mygeeto holocron knowledge
+Only be able to claim planet if your faction is the only one with ships there
+Lock movement if holocron needed
+Show button on ship when planet has space station to repair
+Detect winner of game
+Generate + export code
+Fix history formatting
+Add action functionality to holocron + fix ship funcs
+Fix fix ship btn vis
+Repair ship functionality in station
+Claim holocron + fix ship button functionality
+Only produce ship if player owns planet
+
+IN PROGRESS:
+
+TODO:
+Get empire ships
+
+Fill in rest of ship icons
+
+Font license (MIT) compliance + attribution
+
+-- Other Tools--
+Fight input:
+  Paste in code, input details and gen new code
+  Trade space station for least powerful enemy ship in fight
+  Ace death / life / cooldown
+
+POSTPONED:
+New action system for moving -- move 6 at a time? or just discount action costs. If discount have a forfeit action button
