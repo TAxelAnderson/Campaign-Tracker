@@ -55,7 +55,7 @@ function checkForFights() {
     let faction = planet.shipsAtLocation[0][1];
     let fight = false;
 
-    document.getElementById("fights-to-be-resolved").innerHTML += `<button onclick='copyText()'>Copy Code</button>`;
+    document.getElementById("fights-to-be-resolved").innerHTML = `<button onclick='copyText()'>Copy Code</button>`;
 
     for (let ship of planet.shipsAtLocation) {
       if (ship[1] !== faction) {
