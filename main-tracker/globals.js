@@ -354,13 +354,13 @@ const foAce4Threat = 3;
 const foAce4Hull = 3;
 const foAce4Shields = 3;
 
-const foAce5PilotName = "UNKNOWN";
+const foAce5PilotName = "Holo";
 const foAce5ShipSize = "small";
-const foAce5Ship = "UNKNOWN";
-const foAce5UpgradesArray = ["UNKNOWN"];
-const foAce5Threat = 0;
-const foAce5Hull = 0;
-const foAce5Shields = 0;
+const foAce5Ship = "tieba";
+const foAce5UpgradesArray = ["Fanatical", "Proton Rockets", "Shield Upgrade", "Hull Upgrade"];
+const foAce5Threat = 3;
+const foAce5Hull = 3;
+const foAce5Shields = 3;
 
 const foHugePilotName = "UNKNOWN";
 const foHugeShipSize = "huge";
