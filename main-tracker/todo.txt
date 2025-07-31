@@ -37,6 +37,8 @@ IN PROGRESS:
 TODO:
 Get empire ships
 
+Cut off action decimal at 2 places
+
 Show indicator dot on planets with ships.
 
 Fill in rest of ship icons
