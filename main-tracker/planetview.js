@@ -124,7 +124,7 @@ function moveShip(shipUUID, currentLocation, locationToMoveTo) {
   let index = shipsAtCurrent.findIndex(child => String(child[10]) === String(shipUUID));
 
   if (index !== -1) {
-    if (actionsLeftThisTurn >= 1) {
+    if (actionsLeftThisTurn >= 0.2) {
       // Get the ship object before removing it
       const ship = shipsAtCurrent[index];
 
@@ -134,7 +134,7 @@ function moveShip(shipUUID, currentLocation, locationToMoveTo) {
       // Add ship to new location
       map.get(locationToMoveTo).shipsAtLocation.push(ship);
 
-      actionsLeftThisTurn -= 1;
+      actionsLeftThisTurn -= 0.2;
     } else {
       alert("Not enough actions");
       return;
@@ -385,7 +385,7 @@ function switchToPlanetView(planetName) {
 
       // Add fix button if station is present
       if (hasStation) {
-        shipHTML += `<button onclick='fixShip(${JSON.stringify(item)})' class="fix-ship">Fix ship (1 action)</button>`;
+        shipHTML += `<button onclick='fixShip(${JSON.stringify(item)})' class="fix-ship">Fix ship (0.2 actions)</button>`;
       }
 
       shipHTML += `</div>`;
