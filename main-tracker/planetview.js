@@ -134,7 +134,7 @@ function moveShip(shipUUID, currentLocation, locationToMoveTo) {
       // Add ship to new location
       map.get(locationToMoveTo).shipsAtLocation.push(ship);
 
-      actionsLeftThisTurn -= 0.2;
+      actionsLeftThisTurn -= 0.20;
     } else {
       alert("Not enough actions");
       return;
