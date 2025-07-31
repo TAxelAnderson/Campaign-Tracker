@@ -30,15 +30,16 @@ Fix fix ship btn vis
 Repair ship functionality in station
 Claim holocron + fix ship button functionality
 Only produce ship if player owns planet
+Font license (MIT) compliance + attribution
 
 IN PROGRESS:
 
 TODO:
 Get empire ships
 
-Fill in rest of ship icons
+Show indicator dot on planets with ships.
 
-Font license (MIT) compliance + attribution
+Fill in rest of ship icons
 
 -- Other Tools--
 Fight input:
