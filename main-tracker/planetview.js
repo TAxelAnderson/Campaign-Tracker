@@ -376,7 +376,7 @@ function switchToPlanetView(planetName) {
           <p class="pilot-name">${pilotName}</p>
           <p class="hull-count">${hull} <span>v</span></p>
           <p class="shield-count">${shield} <span>v</span></p>
-          <button class="move-ship" onclick='showValidMoves("${planetName}", "${id}")'>Move ship (1 action)</button>
+          <button class="move-ship" onclick='showValidMoves("${planetName}", "${id}")'>Move ship (0.2 actions)</button>
       `;
 
       // Add holocron claim button if applicable
@@ -386,7 +386,7 @@ function switchToPlanetView(planetName) {
 
       // Add fix button if station is present
       if (hasStation) {
-        shipHTML += `<button onclick='fixShip(${JSON.stringify(item)})' class="fix-ship">Fix ship (0.2 actions)</button>`;
+        shipHTML += `<button onclick='fixShip(${JSON.stringify(item)})' class="fix-ship">Fix ship (1 action)</button>`;
       }
 
       shipHTML += `</div>`;
