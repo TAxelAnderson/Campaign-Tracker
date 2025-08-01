@@ -46,7 +46,8 @@ function moveShip(shipUUID, currentLocation, locationToMoveTo) {
   })
 
   if (!letMovementHappen) {
-    alert("A ship with enemy ships in the same location cannot move.")
+    console.log(`Current player faction: ${currentPlayerFaction}`);
+    alert("A ship with enemy ships in the same location cannot move.");
     return;
   }
 

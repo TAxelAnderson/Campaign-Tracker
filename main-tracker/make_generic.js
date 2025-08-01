@@ -363,9 +363,6 @@ function produceGeneric(faction, index, planet) {
     alert("ERROR -- produceGeneric() faction not found");
     return;
   }
-
-  // for debugging
-  console.log(determineCurrentPlayer());
   
   checkIfActionsAreComplete();
 }
