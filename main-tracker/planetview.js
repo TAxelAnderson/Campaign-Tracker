@@ -125,7 +125,7 @@ function moveShip(shipUUID, currentLocation, locationToMoveTo) {
   let shipsAtCurrent = map.get(currentLocation).shipsAtLocation;
 
   // Find index of the ship with matching UUID
-  let index = shipsAtCurrent.findIndex(child => String(child[10]) === String(shipUUID));
+  let index = shipsAtCurrent.findIndex(child => String(child[10]) == String(shipUUID));
 
   if (index !== -1) {
     if (actionsLeftThisTurn >= 0.2) {
@@ -139,7 +139,7 @@ function moveShip(shipUUID, currentLocation, locationToMoveTo) {
       map.get(locationToMoveTo).shipsAtLocation.push(ship);
 
       actionsLeftThisTurn -= 0.20;
-      actionsLeftThisTurn = actionsLeftThisTurn.parseFloat(x).toFixed(1);
+      actionsLeftThisTurn = parseFloat(actionsLeftThisTurn.toFixed(1));
     } else {
       alert("Not enough actions");
       return;

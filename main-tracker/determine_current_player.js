@@ -1,12 +1,9 @@
 function determineCurrentPlayer() {
-  console.log("Full history:", history);
-
   if (history.length === 0) {
     return "player1";
   }
 
   const lastPlayer = history[0][0];
-  console.log("Last player:", lastPlayer);
 
   if (lastPlayer === "player1") {
     return "player2";
