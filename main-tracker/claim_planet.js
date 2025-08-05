@@ -1,67 +1,129 @@
 document.getElementById("claim-planet").addEventListener("click", claimPlanet);
 
-    function claimPlanet() {
-      let currentPlayer = determineCurrentPlayer();
-      let currentPlayerFaction;
-      if (currentPlayer == "player1") {
-        currentPlayerFaction = playerOneFaction;
-      } else if (currentPlayer == "player2") {
-        currentPlayerFaction = playerTwoFaction;
-      } else if (currentPlayer == "player3") {
-        currentPlayerFaction = playerThreeFaction;
-      } else {
-        alert("claimPlanet() error determining current player faction");
-      }
+    // function claimPlanet() {
+    //   let currentPlayer = determineCurrentPlayer();
+    //   let currentPlayerFaction;
+    //   if (currentPlayer == "player1") {
+    //     currentPlayerFaction = playerOneFaction;
+    //   } else if (currentPlayer == "player2") {
+    //     currentPlayerFaction = playerTwoFaction;
+    //   } else if (currentPlayer == "player3") {
+    //     currentPlayerFaction = playerThreeFaction;
+    //   } else {
+    //     alert("claimPlanet() error determining current player faction");
+    //   }
 
-      let currentPlanet = document.getElementById("english-text").innerText;
-      let map = new Map(planets.map(obj => [obj.name, obj]));
-      let planetData = map.get(`${currentPlanet}`);
+    //   let currentPlanet = document.getElementById("english-text").innerText;
+    //   let map = new Map(planets.map(obj => [obj.name, obj]));
+    //   let planetData = map.get(`${currentPlanet}`);
 
-      if (!planetData) {
-        alert("Planet not found in map.");
-        return;
-      }
+    //   if (!planetData) {
+    //     alert("Planet not found in map.");
+    //     return;
+    //   }
 
-      let shipsAtPlanet = planetData.shipsAtLocation;
+    //   let shipsAtPlanet = planetData.shipsAtLocation;
 
-      if (map.get(`${currentPlanet}`).occupier == currentPlayer) {
-        alert("Planet already claimed");
-        return;
-      }
+    //   if (map.get(`${currentPlanet}`).occupier == currentPlayer) {
+    //     alert("Planet already claimed");
+    //     return;
+    //   }
 
-      let flag1 = false;
-      for (let i = 0; i < shipsAtPlanet.length; i++) {
-        if (shipsAtPlanet[i][1] == currentPlayerFaction) {
-          flag1 = true;
-        }
-      }
+    //   let flag1 = false;
+    //   for (let i = 0; i < shipsAtPlanet.length; i++) {
+    //     if (shipsAtPlanet[i][1] == currentPlayerFaction) {
+    //       flag1 = true;
+    //     }
+    //   }
 
-      let flag2 = false;
-      for (let i = 0; i < shipsAtPlanet.length; i++) {
-        if (shipsAtPlanet[i][1] !== currentPlayerFaction) {
-          flag2 = true;
-        }
-      }
+    //   let flag2 = false;
+    //   for (let i = 0; i < shipsAtPlanet.length; i++) {
+    //     if (shipsAtPlanet[i][1] !== currentPlayerFaction) {
+    //       flag2 = true;
+    //     }
+    //   }
 
-      // claim planet
-      if (flag1 && flag2) {
-        if (actionsLeftThisTurn >= 1) {
-          actionsLeftThisTurn -= 1;
-          map.get(`${currentPlanet}`).occupier = currentPlayer;
-          alert(`${currentPlanet} claimed.`);
-        } else {
-          alert("Not enough actions");
-        }
-      } else if (flag1) {
-        alert(`You need a ship at ${currentPlanet} to claim it.`);
-        return;
-      } else if (flag2) {
-        alert(`You must be the only one with ships at ${planetName} to claim it`);
-        return;
-      }
-      updateScore()
-      console.log(planets)
+    //   // claim planet
+    //   if (flag1 && flag2) {
+    //     if (actionsLeftThisTurn >= 1) {
+    //       actionsLeftThisTurn -= 1;
+    //       map.get(`${currentPlanet}`).occupier = currentPlayer;
+    //       alert(`${currentPlanet} claimed.`);
+    //     } else {
+    //       alert("Not enough actions");
+    //     }
+    //   } else if (flag1) {
+    //     alert(`You need a ship at ${currentPlanet} to claim it.`);
+    //     return;
+    //   } else if (flag2) {
+    //     alert(`You must be the only one with ships at ${planetName} to claim it`);
+    //     return;
+    //   }
+        
+    //   updateScore()
+    //   console.log(planets)
+    // }
+
+function claimPlanet() {
+  let currentPlayer = determineCurrentPlayer();
+  let currentPlayerFaction;
+  if (currentPlayer == "player1") {
+    currentPlayerFaction = playerOneFaction;
+  } else if (currentPlayer == "player2") {
+    currentPlayerFaction = playerTwoFaction;
+  } else if (currentPlayer == "player3") {
+    currentPlayerFaction = playerThreeFaction;
+  } else {
+    alert("claimPlanet() error determining current player faction");
+    return;
+  }
+
+  let currentPlanet = document.getElementById("english-text").innerText;
+  let map = new Map(planets.map(obj => [obj.name, obj]));
+  let planetData = map.get(currentPlanet);
+
+  if (!planetData) {
+    alert("Planet not found in map.");
+    return;
+  }
+
+  let shipsAtPlanet = planetData.shipsAtLocation;
+
+  if (planetData.occupier == currentPlayer) {
+    alert("Planet already claimed");
+    return;
+  }
+
+  // Flags for player and enemy ships
+  let flag1 = false;
+  let flag2 = false;
+  for (let i = 0; i < shipsAtPlanet.length; i++) {
+    if (shipsAtPlanet[i][1] === currentPlayerFaction) {
+      flag1 = true;
+    } else {
+      flag2 = true;
     }
+  }
+
+  // Claiming logic
+  if (flag1 && !flag2) {
+    if (actionsLeftThisTurn >= 1) {
+      actionsLeftThisTurn -= 1;
+      planetData.occupier = currentPlayer;
+      alert(`${currentPlanet} claimed.`);
+    } else {
+      alert("Not enough actions");
+    }
+  } else if (!flag1) {
+    alert(`You need a ship at ${currentPlanet} to claim it.`);
+  } else if (flag2) {
+    alert(`You must be the only one with ships at ${currentPlanet} to claim it`);
+  }
+
+  updateScore();
+  console.log(planets);
+}
+
 
     function updateScore() {
       if (playerCount == 0) {
