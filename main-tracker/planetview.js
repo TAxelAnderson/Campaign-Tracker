@@ -139,6 +139,7 @@ function moveShip(shipUUID, currentLocation, locationToMoveTo) {
       map.get(locationToMoveTo).shipsAtLocation.push(ship);
 
       actionsLeftThisTurn -= 0.20;
+      actionsLeftThisTurn = actionsLeftThisTurn.parseFloat(x).toFixed(1);
     } else {
       alert("Not enough actions");
       return;
