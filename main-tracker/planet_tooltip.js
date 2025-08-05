@@ -5,6 +5,7 @@ window.addEventListener('mousemove', (event) => {
   document.getElementById("actions-left").innerText = `${actionsLeftThisTurn} actions left`;
   updateScore();
   updateButtonText();
+  actionsLeftThisTurn = parseFloat(actionsLeftThisTurn.toFixed(1));
   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
   raycaster.setFromCamera(mouse, camera);
