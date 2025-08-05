@@ -1,45 +1,61 @@
-    // Camera and controls
-    camera.position.set(0, 95, 0);
-    camera.lookAt(0, 0, 0);
-    const controls = new THREE.OrbitControls(camera, renderer.domElement);
-    controls.enableRotate = false;
-    controls.enableZoom = true;
-    controls.enablePan = true;
+// Camera and controls
+camera.position.set(0, 95, 0);
+camera.lookAt(0, 0, 0);
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.enableRotate = false;
+controls.enableZoom = true;
+controls.enablePan = true;
 
-    // Load textures
-    const textureLoader = new THREE.TextureLoader();
-    const textures = [textureLoader.load("resources/feathered60.png"), textureLoader.load("resources/sprite120.png")];
-    textures.forEach((tex) => {
-      tex.minFilter = THREE.LinearFilter;
-      tex.magFilter = THREE.LinearFilter;
-    });
+// Load textures
+const textureLoader = new THREE.TextureLoader();
+const textures = [
+  textureLoader.load("resources/feathered60.png"),
+  textureLoader.load("resources/sprite120.png"),
+];
+textures.forEach((tex) => {
+  tex.minFilter = THREE.LinearFilter;
+  tex.magFilter = THREE.LinearFilter;
+});
 
-    const planetCount = planets.length;
-    const positions = new Float32Array(planetCount * 3);
-    const colors = new Float32Array(planetCount * 3);
-    const textureIndices = new Float32Array(planetCount);
-    planets.forEach((obj, i) => {
-      positions[i * 3] = obj.x * 2;
-      positions[i * 3 + 1] = obj.y * 2;
-      positions[i * 3 + 2] = obj.z * 2;
+const planetCount = planets.length;
+const positions = new Float32Array(planetCount * 3);
+const colors = new Float32Array(planetCount * 3);
+const textureIndices = new Float32Array(planetCount);
 
-      const color = new THREE.Color(obj.color || 0xadd8e6);
-      colors[i * 3] = color.r;
-      colors[i * 3 + 1] = color.g;
-      colors[i * 3 + 2] = color.b;
+planets.forEach((obj, i) => {
+  positions[i * 3] = obj.x * 2;
+  positions[i * 3 + 1] = obj.y * 2;
+  positions[i * 3 + 2] = obj.z * 2;
 
-      textureIndices[i] = obj.textureIndex ?? 0;
-    });
+  // Initial color based on occupier
+  let color;
+  switch (obj.occupier) {
+    case "player1":
+      color = new THREE.Color(0xff0000); // red
+      break;
+    case "player2":
+      color = new THREE.Color(0x0000ff); // blue
+      break;
+    default:
+      color = new THREE.Color(0xffffff); // white
+  }
 
-    const planetsGeometry = new THREE.BufferGeometry();
-    planetsGeometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-    planetsGeometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
-    planetsGeometry.setAttribute("textureIndex", new THREE.BufferAttribute(textureIndices, 1));
+  colors[i * 3] = color.r;
+  colors[i * 3 + 1] = color.g;
+  colors[i * 3 + 2] = color.b;
 
-    const starsMaterial = new THREE.ShaderMaterial({
+  textureIndices[i] = obj.textureIndex ?? 0;
+});
+
+const planetsGeometry = new THREE.BufferGeometry();
+planetsGeometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+planetsGeometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+planetsGeometry.setAttribute("textureIndex", new THREE.BufferAttribute(textureIndices, 1));
+
+const starsMaterial = new THREE.ShaderMaterial({
   uniforms: {
     textures: { value: textures },
-    pointSize: { value: 900.0},
+    pointSize: { value: 900.0 },
   },
   vertexShader: `
     attribute float textureIndex;
@@ -74,25 +90,91 @@
   blending: THREE.AdditiveBlending,
 });
 
-    const stars = new THREE.Points(planetsGeometry, starsMaterial);
-    scene.add(stars);
+const stars = new THREE.Points(planetsGeometry, starsMaterial);
+scene.add(stars);
 
-    // Lighting
-    scene.add(new THREE.AmbientLight(0xffffff, 1));
-
-    // Animate
-    function animate() {
-      requestAnimationFrame(animate);
-      controls.update();
-      renderer.render(scene, camera);
+// === UPDATE PLANET COLORS EVERY SECOND ===
+function updatePlanetColors() {
+  planets.forEach((obj, i) => {
+    let color;
+    switch (obj.occupier) {
+      case "player1":
+        if (playerOneFaction == "rebel") {
+          color = new THREE.Color(0xf31414);
+        } else if (playerOneFaction == "republic") {
+          color = new THREE.Color(0xb52121);
+        } else if (playerOneFaction == "empire") {
+          color = new THREE.Color(0x1469bb);
+        } else if (playerOneFaction == "fo") {
+          color = new THREE.Color(0x581212);
+        } else if (playerOneFaction == "separatist") {
+          color = new THREE.Color(0x101167);
+        } else {
+          color = new THREE.Color(0xffffff);
+        }
+        break;
+      case "player2":
+        if (playerTwoFaction == "rebel") {
+          color = new THREE.Color(0xf31414);
+        } else if (playerTwoFaction == "republic") {
+          color = new THREE.Color(0xb52121);
+        } else if (playerTwoFaction == "empire") {
+          color = new THREE.Color(0x1469bb);
+        } else if (playerTwoFaction == "fo") {
+          color = new THREE.Color(0x581212);
+        } else if (playerTwoFaction == "separatist") {
+          color = new THREE.Color(0x101167);
+        } else {
+          color = new THREE.Color(0xffffff);
+        }
+        break;
+      case "player3":
+        if (playerThreeFaction == "rebel") {
+          color = new THREE.Color(0xf31414);
+        } else if (playerThreeFaction == "republic") {
+          color = new THREE.Color(0xb52121);
+        } else if (playerThreeFaction == "empire") {
+          color = new THREE.Color(0x1469bb);
+        } else if (playerThreeFaction == "fo") {
+          color = new THREE.Color(0x581212);
+        } else if (playerThreeFaction == "separatist") {
+          color = new THREE.Color(0x101167);
+        } else {
+          color = new THREE.Color(0xffffff);
+        }
+        break;
+      default:
+        color = new THREE.Color(0xffffff);
+        break;
     }
-    animate();
 
-    // Handle window resize
-    window.addEventListener("resize", () => {
-      const width = window.innerWidth;
-      const height = window.innerHeight;
-      renderer.setSize(width, height);
-      camera.aspect = width / height;
-      camera.updateProjectionMatrix();
-    });
+    colors[i * 3] = color.r;
+    colors[i * 3 + 1] = color.g;
+    colors[i * 3 + 2] = color.b;
+  });
+
+  planetsGeometry.attributes.color.needsUpdate = true;
+}
+
+setInterval(updatePlanetColors, 1000); // every 1 second
+updatePlanetColors(); // initial call
+
+// Lighting
+scene.add(new THREE.AmbientLight(0xffffff, 1));
+
+// Animate
+function animate() {
+  requestAnimationFrame(animate);
+  controls.update();
+  renderer.render(scene, camera);
+}
+animate();
+
+// Handle window resize
+window.addEventListener("resize", () => {
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+  renderer.setSize(width, height);
+  camera.aspect = width / height;
+  camera.updateProjectionMatrix();
+});
