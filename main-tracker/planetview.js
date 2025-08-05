@@ -32,15 +32,18 @@ function moveShip(shipUUID, currentLocation, locationToMoveTo) {
   if (determineCurrentPlayer() == "player1") {
     currentPlayerFaction = playerOneFaction;
   } else if (determineCurrentPlayer() == "player2") {
-    currentPlayerFaction == playerTwoFaction;
+    currentPlayerFaction = playerTwoFaction;
+  } else if (determineCurrentPlayer() == "player3") {
+    currentPlayerFaction = playerThreeFaction
   } else {
-    currentPlayerFaction = playerThreeFaction;
+    currentPlayerFaction = "unknown!";
   }
 
   let letMovementHappen = true;
 
   map.get(currentLocation).shipsAtLocation.forEach((ship) => {
     if (ship[1] !== currentPlayerFaction) {
+      console.log(ship[1], currentPlayerFaction)
       letMovementHappen = false
     }
   })
