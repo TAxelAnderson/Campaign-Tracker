@@ -3,6 +3,7 @@ function produceAce(faction, index, planet) {
 
   if (map.get(planet).occupier !== determineCurrentPlayer()) {
     alert(`You must occupy ${planet.name} to produce a ship there.`);
+    return;
   }
 
   if (faction == "rebel") {
